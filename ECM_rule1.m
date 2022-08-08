@@ -4,13 +4,9 @@ syms x
 % given parameters
 sigma = 1;
 pi0 = 0.5;
-pi1 = pi0;
+pi1 = 1 - pi0;
 
 % normal pdfs
-% f = @(x,mu,sigma) 1/(sigma * sqrt(2*sym(pi)))...
-%     * exp(-1/2 * ((x-mu)/sigma)^2);
-% f0 = f(x,1,sigma);
-% f1 = f(x,2,2*sigma);
 f0 = normpdf(x,1,sigma);
 f1 = normpdf(x,2,2*sigma);
 
@@ -18,8 +14,6 @@ f1 = normpdf(x,2,2*sigma);
 hold on
 fplot(f0,"LineWidth",2)
 fplot(f1,"LineWidth",2)
-
-
 
 % Shading regions of rule
 discrim = 2*sqrt(1 + 6*log(2));
@@ -30,16 +24,6 @@ xl = xlim;
 area(pop0Rule, repmat(yl(2),1,2),'FaceColor','blue','FaceAlpha', 0.1,'EdgeColor','none');
 area([xl(1) pop0Rule(1)], repmat(yl(2),1,2),'FaceColor','red','FaceAlpha', 0.1,'EdgeColor','none');
 area([pop0Rule(2) xl(2)], repmat(yl(2),1,2),'FaceColor','red','FaceAlpha', 0.1,'EdgeColor','none');
-% xBox = [pop0Rule(1), pop0Rule(1), pop0Rule(2), pop0Rule(2)];
-% yBox = [yl(1), yl(2), yl(2), yl(1)];
-% Vertices = [pop0Rule(1) yl(1);...
-%             pop0Rule(1) yl(2);...
-%             pop0Rule(2) yl(2);...
-%             pop0Rule(2) yl(1);];
-% Vertices = [pop0Rule' yl'; pop0Rule' flip(yl'); xl' yl'; xl' flip(yl')];
-% Faces = [1 2 3 4 1];
-% patch(xBox, yBox, 'white', 'FaceColor','blue', 'FaceAlpha', 0.1);
-
 
 % Formatting
 xlabel('$x$','Interpreter','latex','FontSize',12)
