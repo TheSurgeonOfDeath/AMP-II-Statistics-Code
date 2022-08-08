@@ -1,7 +1,7 @@
 % Symbolically plotting normal PDFs for population 0 and population 1.
 syms x
 
-% assumed parameters
+% given parameters
 sigma = 1;
 
 % normal pdfs
