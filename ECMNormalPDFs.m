@@ -1,26 +1,38 @@
 % Symbolically plotting normal PDFs for population 0 and population 1.
 syms x
 
-% assumed parameters
-sigma = 1;
+% various parameter values
+n = 4;
+sigma = [0.1 0.5 1 2];
 
 % normal pdfs
 f0 = normpdf(x,1,sigma);
 f1 = normpdf(x,2,2*sigma);
 
 % plot
-hold on
-fplot(f0)
-fplot(f1)
-
-formataxis;
-xlabel('$x$','Interpreter','latex','FontSize',12)
-ylabel('Probability Densitiy','Interpreter','latex','FontSize',12)
-title('PDFs for Populations 0 and 1',...
+t = tiledlayout(2,2, 'TileSpacing', 'compact');
+title(t,'PDFs for Populations 0 and 1 given different $\sigma$-values',...
     'Interpreter','latex','FontSize',14,'FontWeight','bold')
-legend('$f_0(x)$', '$f_1(x)$', 'FontWeight', 'bold','FontSize',...
-     12,"Location","northeast",'Interpreter','latex')
-hold off
+for i = 1:n
+    nexttile
+    hold on
+    fplot(f0(i))
+    fplot(f1(i))
+    hold off
+
+    formataxis;
+    xlabel('$x$','Interpreter','latex','FontSize',10)
+    ylabel('Probability Densitiy','Interpreter','latex','FontSize',10)
+    title("$\sigma = " + num2str(sigma(i)) + "$",...
+    'Interpreter','latex','FontSize',12,'FontWeight','bold')
+end
+
+% title(nexttile(1),'PDFs for Populations 0 and 1',...
+%     'Interpreter','latex','FontSize',14,'FontWeight','bold')
+hL = legend(nexttile(2),'$f_0(x)$', '$f_1(x)$', 'FontWeight', 'bold','FontSize',...
+     12,"Location","northeast",'Interpreter','latex');
+hL.Location = 'northeastoutside';
+
 
 % save plot as pdf
 printpdf(gcf, "ECM_Normal_PDFs_plot.pdf");
@@ -36,7 +48,7 @@ function printpdf(h,outfilename)
 end
 
 function formataxis
-set(gca,'DataAspectRatio',[16 1 1])
+% set(gca,'DataAspectRatio',[16 1 1])
 % axis([1.5-5 1.5+5 0 0.41])
 xlim([1.5-5 1.5+5])
 % set(gca,'xaxislocation','origin','yaxislocation','origin')
