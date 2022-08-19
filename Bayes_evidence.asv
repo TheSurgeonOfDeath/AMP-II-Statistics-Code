@@ -1,0 +1,30 @@
+% Plotting posterior probability of guilt vs prior probability of guilt
+% after each evidence.
+
+% syms priorG
+% complement
+c = @(probA) 1 - probA;
+
+% prior probabilities
+n = 20;
+priorG = linspace(0,0.5,n);
+priorGc = 1 - priorG;
+
+% E1
+% likelihoods
+likelyE1GivenGc = 0.49;
+likelyE1GivenG = 1;
+likelyE2GivenGc = 0.18;
+likelyE2GivenG = 1;
+
+
+% posterior probabilities
+postGcGivenE1 = likelyE1GivenGc .* priorGc ./...
+    (likelyE1GivenGc .* priorGc + likelyE1GivenG .* priorG);
+postGGivenE1 = 1 - postGcGivenE1;
+
+postGcGivenE1andE2 = likelyE2GivenGc .* postGcGivenE1 ./...
+    (likelyE2GivenGc .* postGcGivenE1 + likelyE2GivenG .* postGGivenE1)
+
+% plot
+plot(priorG, postGGivenE1)

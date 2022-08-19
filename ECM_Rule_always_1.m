@@ -5,28 +5,18 @@ syms x
 sigma = 1;
 
 % normal pdfs
-f0 = normpdf(x,1,sigma);
-f1 = normpdf(x,2,2*sigma);
+f0 = 0.5 * 1/2 * exp(-1/6) * normpdf(x,1,sigma);
+f1 = 0.5 * normpdf(x,2,2*sigma);
 
 % plot
 hold on
 fplot(f0,"LineWidth",2)
 fplot(f1,"LineWidth",2)
 
-% Shading regions of rule
-discrim = 2*sqrt(1 + 6*log(2));
-pop0Rule = [(2 - discrim)/3, (2 + discrim)/3];
-formataxis;
-yl = ylim;
-xl = xlim;
-area(pop0Rule, repmat(yl(2),1,2),'FaceColor','blue','FaceAlpha', 0.1,'EdgeColor','none');
-area([xl(1) pop0Rule(1)], repmat(yl(2),1,2),'FaceColor','red','FaceAlpha', 0.1,'EdgeColor','none');
-area([pop0Rule(2) xl(2)], repmat(yl(2),1,2),'FaceColor','red','FaceAlpha', 0.1,'EdgeColor','none');
-
 % Formatting
 xlabel('$x$','Interpreter','latex','FontSize',12)
 ylabel('Probability Densitiy','Interpreter','latex','FontSize',12)
-title('Classification Regions of Populations 0 and 1',...
+title('Scaled PDFs for Populations 0 and 1',...
     'Interpreter','latex','FontSize',14,'FontWeight','bold')
 legend('$f_0(x)$', '$f_1(x)$','Population 0','Population 1', 'FontWeight', 'bold','FontSize',...
      12,"Location","northeast",'Interpreter','latex')
@@ -34,7 +24,7 @@ legend('$f_0(x)$', '$f_1(x)$','Population 0','Population 1', 'FontWeight', 'bold
 hold off
 
 
-% printpdf(gcf, "ECM_rule1_plot.pdf");
+printpdf(gcf, "ECM_rule_always_1_plot.pdf");
 
 function printpdf(h,outfilename)
     set(h, 'PaperUnits','centimeters');

@@ -2,8 +2,8 @@
 syms x
 
 % various parameter values
-n = 4;
 sigma = [0.1 0.5 1 2];
+n = length(sigma);
 
 % normal pdfs
 f0 = normpdf(x,1,sigma);
@@ -26,16 +26,13 @@ for i = 1:n
     title("$\sigma = " + num2str(sigma(i)) + "$",...
     'Interpreter','latex','FontSize',12,'FontWeight','bold')
 end
-
-% title(nexttile(1),'PDFs for Populations 0 and 1',...
-%     'Interpreter','latex','FontSize',14,'FontWeight','bold')
 hL = legend(nexttile(2),'$f_0(x)$', '$f_1(x)$', 'FontWeight', 'bold','FontSize',...
      12,"Location","northeast",'Interpreter','latex');
 hL.Location = 'northeastoutside';
 
 
 % save plot as pdf
-printpdf(gcf, "ECM_Normal_PDFs_plot.pdf");
+% printpdf(gcf, "ECM_Normal_PDFs_plot.pdf");
 
 function printpdf(h,outfilename)
     set(h, 'PaperUnits','centimeters');
